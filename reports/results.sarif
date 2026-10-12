@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "KernelGuard",
+          "version": "1.0.0",
+          "informationUri": "https://github.com/igotlinux/kernal-guard",
+          "rules": [
+            {
+              "id": "KG001",
+              "name": "NumericalMismatch",
+              "shortDescription": {
+                "text": "Kernel numerical output violated contract"
+              }
+            },
+            {
+              "id": "KG002",
+              "name": "VectorizationRegression",
+              "shortDescription": {
+                "text": "Compiler loop vectorization regression detected"
+              }
+            },
+            {
+              "id": "KG003",
+              "name": "MemoryGuardViolation",
+              "shortDescription": {
+                "text": "Buffer overrun or canary corruption detected"
+              }
+            }
+          ]
+        }
+      },
+      "results": []
+    }
+  ]
+}

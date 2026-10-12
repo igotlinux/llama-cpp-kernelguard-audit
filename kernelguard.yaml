@@ -1,0 +1,50 @@
+version: 1
+project_name: "llama.cpp (ggml) - Production LLM Inference Kernels Audit"
+
+toolchains:
+  gcc:
+    enabled: true
+    binary_cxx: "g++"
+    standard: "c++17"
+    opt_levels: ["-O0", "-O2", "-O3"]
+    fp_modes: ["strict", "fast-math"]
+  clang:
+    enabled: true
+    binary_cxx: "clang++"
+    standard: "c++17"
+    opt_levels: ["-O0", "-O2", "-O3"]
+    fp_modes: ["strict", "fast-math"]
+
+kernels:
+  ggml_vec_dot_f32:
+    type: dot_product
+    source: "src/ggml_vec_dot_f32.cpp"
+    entrypoint: "ggml_vec_dot_f32"
+    input_dim: 1024
+    contract:
+      max_ulp_error: 24
+      allow_nans: false
+      allow_denormals: false
+  ggml_vec_silu_f32:
+    type: unary
+    source: "src/ggml_vec_silu_f32.cpp"
+    entrypoint: "ggml_vec_silu_f32"
+    input_dim: 1024
+    contract:
+      max_ulp_error: 4
+      allow_nans: false
+      allow_denormals: false
+  ggml_vec_norm_f32:
+    type: unary
+    source: "src/ggml_vec_norm_f32.cpp"
+    entrypoint: "ggml_vec_norm_f32"
+    input_dim: 1024
+    contract:
+      max_ulp_error: 8
+      allow_nans: false
+      allow_denormals: false
+
+profiles:
+  quick:
+    opt_levels: ["-O0", "-O2", "-O3"]
+    fp_modes: ["strict", "fast-math"]
